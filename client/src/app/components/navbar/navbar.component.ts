@@ -10,13 +10,13 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] = [
     {
       label: 'Medicamentos',
-      icon: 'pi pi-fw pi-home',
+      icon: 'pi pi-bookmark-fill',
       routerLink: '/medication',
       routerLinkActiveOptions: { exact: true },
     },
     {
       label: 'Ventas',
-      icon: 'pi pi-fw pi-calendar',
+      icon: 'pi pi-shopping-cart',
       routerLink: '/sales',
       routerLinkActiveOptions: { exact: true },
     },

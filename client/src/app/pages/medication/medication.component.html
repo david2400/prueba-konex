@@ -8,6 +8,13 @@
   [rows]="2"
   [showCurrentPageReport]="true"
   [rowsPerPageOptions]="[2, 10, 25]"
+  [globalFilterFields]="[
+    'nombre',
+    'laboratorio',
+    'fechaFabricacion',
+    'fechaVencimiento',
+    'fechaFabricacion'
+  ]"
   [paginator]="true"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 >
@@ -74,7 +81,8 @@
         ></p-columnFilter>
       </th>
       <th>
-        fechaVencimiento<p-columnFilter
+        fechaVencimiento
+        <p-columnFilter
           type="text"
           field="fechaVencimiento"
           display="menu"

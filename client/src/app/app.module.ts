@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { NgPrimeModule } from '@app/app.ngprime.module';
@@ -12,6 +10,7 @@ import { SalesComponent } from '@pages/sales/sales.component';
 import { HistoryComponent } from '@pages/history/history.component';
 import { MedicamentoService } from '@app/services/medicamento.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
     HistoryComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, NgPrimeModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    NgPrimeModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   providers: [MedicamentoService],
   bootstrap: [AppComponent],
 })

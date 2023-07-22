@@ -1,72 +1,77 @@
-<form>
+<form [formGroup]="formMedication" (ngSubmit)="submitForm()">
   <div class="p-8 card">
-    <div class="formgrid grid">
+    <div class="grid">
       <div class="col-6 sm:col-12 lg:col-6">
-        <p>nombre:</p>
+        <b>Nombre:</b>
         <input
           type="nombre"
           name="nombre"
-          class="w-full"
+          class="w-full my-2"
           pInputText
-          [(ngModel)]="nombre"
+          formControlName="nombre"
           [disabled]="isDisabled"
         />
       </div>
       <div class="col-6 sm:col-12 lg:col-6">
-        <p>laboratorio:</p>
+        <b>Laboratorio:</b>
         <input
           type="text"
           name="laboratorio"
-          class="w-full"
+          class="w-full my-2"
           pInputText
-          [(ngModel)]="laboratorio"
+          formControlName="laboratorio"
           [disabled]="isDisabled"
         />
       </div>
 
       <div class="col-6 sm:col-12 lg:col-6">
-        <p>cantidadStock:</p>
-        <p-inputNumber
-          [min]="1"
-          [style]="{ width: '100%' }"
-          name="cantidadStock"
-          inputId="integeronly"
-          [(ngModel)]="cantidadStock"
-        >
-        </p-inputNumber>
-      </div>
-      <div class="col-6 sm:col-12 lg:col-6">
-        <p>valorUnitario:</p>
-        <p-inputNumber
-          name="valorUnitario"
-          inputId="integeronly"
-          styleClass="input-styling"
-          [inputStyle]="{ width: '100%' }"
-          [(ngModel)]="valorUnitario"
-        >
-        </p-inputNumber>
-      </div>
-      <div class="col-6 sm:col-12 lg:col-6">
-        <p>fechaFabricacion:</p>
+        <b>Fecha Fabricacion:</b>
         <p-calendar
           name="fechaFabricacion"
-          [(ngModel)]="fechaFabricacion"
+          formControlName="fechaFabricacion"
           [showIcon]="true"
-          [style]="{ width: '100%' }"
+          styleClass="w-full my-2"
           dateFormat="dd-mm-yy"
           [appendTo]="'body'"
         ></p-calendar>
       </div>
       <div class="col-6 sm:col-12 lg:col-6">
-        <p>fechaVencimiento:</p>
+        <b>Fecha Vencimiento:</b>
         <p-calendar
           name="fechaVencimiento"
-          [(ngModel)]="fechaVencimiento"
+          formControlName="fechaVencimiento"
           [showIcon]="true"
-          [style]="{ width: '100%' }"
+          styleClass="w-full my-2"
           dateFormat="dd-mm-yy"
           [appendTo]="'body'"
         ></p-calendar>
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <b>Stock:</b>
+        <p-inputNumber
+          name="cantidadStock"
+          formControlName="cantidadStock"
+          inputId="integeronly"
+          class="w-full my-2"
+          [showButtons]="true"
+          inputId="minmax-buttons"
+          [min]="1"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <b>Valor Unitario:</b>
+        <p-inputNumber
+          name="valorUnitario"
+          formControlName="valorUnitario"
+          inputId="integeronly"
+          class="w-full my-2"
+          mode="decimal"
+          [showButtons]="true"
+          inputId="minmax-buttons"
+          [min]="1"
+        >
+        </p-inputNumber>
       </div>
     </div>
     <div class="flex justify-content-between mt-6">
