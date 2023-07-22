@@ -5,10 +5,10 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { NgPrimeModule } from '@app/app.ngprime.module';
 import { NavbarComponent } from '@app/components/shared/navbar/navbar.component';
-import { MedicationAddComponent } from '@/app/pages/medication-add/medication-add.component';
-import { MedicationComponent } from '@/app/pages/medication/medication.component';
-import { SalesComponent } from '@/app/pages/sales/sales.component';
-import { HistoryComponent } from '@/app/pages/history/history.component';
+import { MedicationAddComponent } from '@pages/medication-add/medication-add.component';
+import { MedicationComponent } from '@pages/medication/medication.component';
+import { SalesComponent } from '@pages/sales/sales.component';
+import { HistoryComponent } from '@pages/history/history.component';
 import { MedicamentoService } from '@app/services/medicamento.service';
 import { HttpClientModule } from '@angular/common/http';
 
