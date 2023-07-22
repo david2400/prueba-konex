@@ -1,0 +1,42 @@
+<p-card>
+  <div class="card">
+    <div class="formgrid grid">
+      <div class="field col">
+        <p>Nombre:</p>
+        <label for="Nombre">{{ venta.medicamento.nombre }}</label>
+
+        <p>CantidadStock:</p>
+        <label for="Cantidad">{{ venta.medicamento.cantidadStock }}</label>
+
+        <p>cantidadStock:</p>
+        <p></p>
+        <p-inputNumber
+          inputId="minmax"
+          inputId="minmax"
+          mode="decimal"
+          [(ngModel)]="venta.cantidad"
+          [min]="1"
+          [max]="this.venta.medicamento.cantidadStock"
+          (onInput)="onInputChange($event)"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="field col">
+        <p>Laboratorio:</p>
+        <label for="laboratorio">{{ venta.medicamento.laboratorio }}</label>
+
+        <p>ValorUnitario:</p>
+        <label for="valorUnitario">{{ venta.medicamento.valorUnitario }}</label>
+
+        <p>Valor Total:</p>
+        {{ venta.valorTotal }}
+      </div>
+    </div>
+
+    <p-button
+      label="Vender"
+      styleClass="p-button-outlined"
+      (onClick)="vender()"
+    ></p-button>
+  </div>
+</p-card>
