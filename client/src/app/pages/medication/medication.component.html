@@ -15,18 +15,19 @@
     <div class="flex w-full justify-content-end gap-3">
       <button
         pButton
-        label="Clear"
-        class="p-button-outlined"
-        icon="pi pi-filter-slash"
-        (click)="clear(dt)"
-      ></button>
-      <span class="p-input-icon-left ml-auto"></span>
-      <button
-        pButton
         label="Agregar"
         class="p-button-outlined"
         icon="pi pi-save"
         (click)="showCreateMedication()"
+      ></button>
+
+      <span class="p-input-icon-left ml-auto"></span>
+      <button
+        pButton
+        label="Clear"
+        class="p-button-outlined"
+        icon="pi pi-filter-slash"
+        (click)="clear(dt)"
       ></button>
       <button
         pButton
@@ -35,15 +36,15 @@
         icon="pi pi-sync"
         (click)="getMedicamentos()"
       ></button>
-      <!-- <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input
-        pInputText
-        type="text"
-        (input)="filterTable($event)"
-        placeholder="Global Search"
-      />
-    </span> -->
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Global Search"
+        />
+      </span>
     </div>
   </ng-template>
 

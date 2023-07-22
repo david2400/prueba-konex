@@ -1,0 +1,91 @@
+<form>
+  <div class="p-8 card">
+    <div class="formgrid grid">
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>nombre:</p>
+        <input
+          type="nombre"
+          name="nombre"
+          class="w-full"
+          pInputText
+          [(ngModel)]="nombre"
+          [disabled]="isDisabled"
+        />
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>laboratorio:</p>
+        <input
+          type="text"
+          name="laboratorio"
+          class="w-full"
+          pInputText
+          [(ngModel)]="laboratorio"
+          [disabled]="isDisabled"
+        />
+      </div>
+
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>cantidadStock:</p>
+        <p-inputNumber
+          [min]="1"
+          [style]="{ width: '100%' }"
+          name="cantidadStock"
+          inputId="integeronly"
+          [(ngModel)]="cantidadStock"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>valorUnitario:</p>
+        <p-inputNumber
+          name="valorUnitario"
+          inputId="integeronly"
+          styleClass="input-styling"
+          [inputStyle]="{ width: '100%' }"
+          [(ngModel)]="valorUnitario"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>fechaFabricacion:</p>
+        <p-calendar
+          name="fechaFabricacion"
+          [(ngModel)]="fechaFabricacion"
+          [showIcon]="true"
+          [style]="{ width: '100%' }"
+          dateFormat="dd-mm-yy"
+          [appendTo]="'body'"
+        ></p-calendar>
+      </div>
+      <div class="col-6 sm:col-12 lg:col-6">
+        <p>fechaVencimiento:</p>
+        <p-calendar
+          name="fechaVencimiento"
+          [(ngModel)]="fechaVencimiento"
+          [showIcon]="true"
+          [style]="{ width: '100%' }"
+          dateFormat="dd-mm-yy"
+          [appendTo]="'body'"
+        ></p-calendar>
+      </div>
+    </div>
+    <div class="flex justify-content-between mt-6">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-check"
+        label="{{ text_button }}"
+        (click)="submitForm()"
+      ></button>
+      <button
+        pButton
+        type="button"
+        icon="pi pi-check"
+        class="p-button-danger"
+        icon="pi pi-times"
+        label="{{ cancel_button }}"
+        (click)="cancel()"
+      ></button>
+    </div>
+  </div>
+</form>
