@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SaleService {
 
-     SaleDTO saveVenta(SaleDTO ventaDTO) throws IOException;
+     SaleDTO saveVenta(SaleDTO saleDTO) throws IOException;
 
      List<SaleDTO> getVentas();
 

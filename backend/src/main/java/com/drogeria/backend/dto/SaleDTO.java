@@ -8,24 +8,22 @@ import java.time.LocalDateTime;
 
 
 @Builder
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaleDTO {
-
 
     @DateTimeFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private LocalDateTime date;
 
-    private MedicamentoDTO medication;
+    private MedicationDTO medication;
 
     private Integer quantity;
 
     private BigDecimal unitValue;
 
     private BigDecimal total;
-
 
     @Override
     public boolean equals(Object o) {

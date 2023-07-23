@@ -12,13 +12,13 @@ import java.util.Objects;
 
 
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "ventas")
+@Table(name = "sales")
 public class Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;

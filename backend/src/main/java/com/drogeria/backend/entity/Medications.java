@@ -10,14 +10,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "medications",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"nombre", "laboratorio"})
-})
+@Table(name = "api/medications")
 public class Medications implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,8 +24,10 @@ public class Medications implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "laboratory")
     private String laboratory;
 
     @Column(name = "dateProduction")
@@ -44,6 +44,7 @@ public class Medications implements Serializable {
     @Column(name = "unitvalue",columnDefinition = "NUMBER")
     private Double unitvalue;
 
+    @Column(name = "state")
     private Integer state;
 
     @Override

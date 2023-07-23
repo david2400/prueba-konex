@@ -31,6 +31,7 @@ export class MedicationComponent {
   ref: DynamicDialogRef = new DynamicDialogRef();
   nombre: String = '';
   laboratorio: String = '';
+  id: number = -1;
   date: Date = new Date();
   medicacion: Medicamento[] = [];
   items: MenuItem[] = [
@@ -90,7 +91,7 @@ export class MedicationComponent {
 
   async delet() {
     await this.medicantoService
-      .delete(this.nombre, this.laboratorio)
+      .delete(this.id)
       .toPromise()
       .then((data) => {
         console.log(data);

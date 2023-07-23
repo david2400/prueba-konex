@@ -1,6 +1,6 @@
 package com.drogeria.backend.service;
 
-import com.drogeria.backend.dto.MedicamentoDTO;
+import com.drogeria.backend.dto.MedicationDTO;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface MedicationService {
 
-    MedicamentoDTO saveMedicamento(MedicamentoDTO medicamento)throws IOException;
+    MedicationDTO saveMedication(MedicationDTO medication)throws IOException;
 
-    MedicamentoDTO getMedicamento(Long id)throws IOException;
+    MedicationDTO getMedication(Long id)throws IOException;
 
-    MedicamentoDTO getMedicamento(String name,String laboratory)throws IOException;
+    MedicationDTO getMedication(String name,String laboratory)throws IOException;
 
-    List<MedicamentoDTO> getMedicamentos();
+    List<MedicationDTO> getMedications();
 
-    String deleteMedicamento(String name,String laboratory)throws IOException;
+    String deleteMedication(Long id)throws IOException;
 
-    MedicamentoDTO updateMedicamento(MedicamentoDTO medicamentoDTO) throws IOException;
+    MedicationDTO updateMedicamento(MedicationDTO medicamentoDTO) throws IOException;
 
 
 

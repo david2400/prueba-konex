@@ -13,22 +13,22 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-@RequestMapping("/api/venta")
+@RequestMapping("sales")
 @Validated
 public class SaleController {
 
     @Autowired
-    private SaleService ventaService;
-
-    @GetMapping("/")
-    @ResponseBody
-    public ResponseEntity<List<SaleDTO>> getVentas() {
-        return ResponseEntity.status(HttpStatus.OK).body( ventaService.getVentas());
-    }
+    private SaleService salesService;
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<SaleDTO> createVenta(@RequestBody SaleDTO saleDTO) throws IOException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ventaService.saveVenta(saleDTO));
+    public ResponseEntity<SaleDTO> registerSale(@RequestBody SaleDTO saleDTO) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(salesService.saveVenta(saleDTO));
+    }
+
+    @GetMapping("/")
+    @ResponseBody
+    public ResponseEntity<List<SaleDTO>> getSales() {
+        return ResponseEntity.status(HttpStatus.OK).body( salesService.getVentas());
     }
 }

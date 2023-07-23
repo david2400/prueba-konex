@@ -1,6 +1,6 @@
 package com.drogeria.backend.serviceImp;
 
-import com.drogeria.backend.dto.MedicamentoDTO;
+import com.drogeria.backend.dto.MedicationDTO;
 import com.drogeria.backend.entity.Medications;
 import com.drogeria.backend.exceptions.global.GlobalDataRequiredException;
 import com.drogeria.backend.exceptions.medicamento.MedicamentoNotFoundNameAndLaboratoryException;
@@ -26,16 +26,16 @@ public class MedicamentoServiceImpl implements MedicationService {
 
     @Override
     @Transactional
-    public MedicamentoDTO saveMedicamento(MedicamentoDTO medicamentoDTO) throws IOException {
-        if(Objects.isNull(medicamentoDTO)){
+    public MedicationDTO saveMedication(MedicationDTO medication) throws IOException {
+        if(Objects.isNull(medication)){
             throw  new GlobalDataRequiredException();
         }
         return MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.
-                save(MedicamentoMapper.INSTANCE.DtoToEntity(medicamentoDTO)));
+                save(MedicamentoMapper.INSTANCE.DtoToEntity(medication)));
     }
 
     @Override
-    public MedicamentoDTO getMedicamento(Long id)throws IOException{
+    public MedicationDTO getMedication(Long id)throws IOException{
         Optional<Medications> medicamento =medicamentoRepository.findById(id);
         if(!medicamento.isPresent()){
             throw  new MedicamentoNotFoundException(id);
@@ -43,7 +43,7 @@ public class MedicamentoServiceImpl implements MedicationService {
         return MedicamentoMapper.INSTANCE.mapToDto(medicamento.get());
     }
 
-    public MedicamentoDTO getMedicamento(String nombre,String laboratory)throws IOException{
+    public MedicationDTO getMedication(String nombre,String laboratory)throws IOException{
         Optional<Medications> medicamento =medicamentoRepository.findByNameAndLaboratory(nombre,laboratory);
         if(!medicamento.isPresent()){
             throw  new MedicamentoNotFoundNameAndLaboratoryException(nombre,laboratory);
@@ -52,25 +52,25 @@ public class MedicamentoServiceImpl implements MedicationService {
     }
 
     @Override
-    public List<MedicamentoDTO> getMedicamentos(){
+    public List<MedicationDTO> getMedications(){
+        System.out.println("hola");
+        System.out.println(medicamentoRepository.findAll());
         return   MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.findAll());
     }
 
     @Override
     @Transactional
-    public String deleteMedicamento(String nombre,String laboratory) {
-        Optional<Medications> medicamento=medicamentoRepository.findByNameAndLaboratory(nombre,laboratory);
-        if(!medicamento.isPresent()){
-            throw new MedicamentoNotFoundNameAndLaboratoryException(nombre,laboratory);
-        }
-        medicamento.get().setState(medicamento.get().getState()==0?1:0);
-        medicamentoRepository.save(medicamento.get());
+    public String deleteMedication(Long id) {
+        Medications medicamento=medicamentoRepository.findById(id).orElseThrow(()-> new MedicamentoNotFoundException(id));
+
+        medicamento.setState(medicamento.getState()==0?1:0);
+        medicamentoRepository.save(medicamento);
         return "Medicamento eliminado";
     }
 
     @Override
     @Transactional
-    public MedicamentoDTO updateMedicamento(MedicamentoDTO medicamentoDTO) throws IOException {
+    public MedicationDTO updateMedicamento(MedicationDTO medicamentoDTO) throws IOException {
         Optional<Medications> medicamentoExistente = medicamentoRepository.findByNameAndLaboratory(medicamentoDTO.getName(),medicamentoDTO.getLaboratory());
 
         if (!medicamentoExistente.isPresent()) {

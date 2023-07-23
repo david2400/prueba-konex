@@ -17,7 +17,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedicamentoDTO {
+public class MedicationDTO {
 
     @NotBlank(message = "Nombre cannot be null")
     @Pattern(regexp = "^[a-zA-Z\\s-]*$", message = "Nombre cannot be null")
@@ -47,7 +47,7 @@ public class MedicamentoDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MedicamentoDTO that = (MedicamentoDTO) o;
+        MedicationDTO that = (MedicationDTO) o;
         return name.equals(that.name) && laboratory.equals(that.laboratory) && dateProduction.equals(that.dateProduction) && dateExpire.equals(that.dateExpire) && stock.equals(that.stock) && unitValue.equals(that.unitValue) && state.equals(that.state);
     }
 
