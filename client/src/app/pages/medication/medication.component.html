@@ -22,22 +22,6 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex w-full justify-content-end gap-3">
-        <button
-          pButton
-          label="Agregar"
-          class="p-button-outlined"
-          icon="pi pi-save"
-          (click)="showModalMedication(false)"
-        ></button>
-
-        <span class="p-input-icon-left ml-auto"></span>
-        <button
-          pButton
-          label="Clear"
-          class="p-button-outlined"
-          icon="pi pi-filter-slash"
-          (click)="clear(dt)"
-        ></button>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
@@ -47,6 +31,21 @@
             placeholder="Global Search"
           />
         </span>
+        <button
+          pButton
+          label="Clear"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt)"
+        ></button>
+        <span class="p-input-icon-left ml-auto"></span>
+        <button
+          pButton
+          label="Agregar"
+          class="p-button-outlined"
+          icon="pi pi-plus"
+          (click)="showModalMedication(false)"
+        ></button>
       </div>
     </ng-template>
 
