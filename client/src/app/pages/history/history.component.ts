@@ -68,7 +68,7 @@ export class HistoryComponent {
     if (this.formSale.valid) {
       const venta = {
         ...this.formSale.value,
-        medication: this.medication,
+        medications: this.medication,
       };
       await this.ventaService
         .sell(venta)

@@ -16,7 +16,7 @@ public class SaleDTO {
     @DateTimeFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private LocalDateTime createdate;
 
-    private MedicationDTO medication;
+    private MedicationDTO medications;
 
     private Integer quantity;
 
@@ -29,6 +29,6 @@ public class SaleDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SaleDTO ventaDTO = (SaleDTO) o;
-        return createdate.equals(ventaDTO.createdate) && medication.equals(ventaDTO.medication) && quantity.equals(ventaDTO.quantity) && unitvalue.equals(ventaDTO.unitvalue) && total.equals(ventaDTO.total);
+        return createdate.equals(ventaDTO.createdate) && medications.equals(ventaDTO.medications) && quantity.equals(ventaDTO.quantity) && unitvalue.equals(ventaDTO.unitvalue) && total.equals(ventaDTO.total);
     }
 }

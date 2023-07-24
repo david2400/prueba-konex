@@ -5,6 +5,7 @@ import com.drogeria.backend.dto.MedicationDTO;
 import com.drogeria.backend.dto.SaleDTO;
 import com.drogeria.backend.entity.Medications;
 import com.drogeria.backend.entity.Sale;
+import com.drogeria.backend.exceptions.medicamento.MedicamentoNotFoundNameAndLaboratoryException;
 import com.drogeria.backend.mapper.MedicamentoMapper;
 import com.drogeria.backend.mapper.VentaMapper;
 import com.drogeria.backend.repository.MedicationRepository;
@@ -12,17 +13,21 @@ import com.drogeria.backend.repository.SaleRepository;
 import com.drogeria.backend.serviceImp.SaleServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class MedicationServiceTest {
     @Mock
@@ -59,48 +64,43 @@ public class MedicationServiceTest {
 
 
 
-        ventaDTO= SaleDTO.builder().medication(medicamentoDTO).createdate(LocalDateTime.of(2023,05,26,10,30,0))
+        ventaDTO= SaleDTO.builder().medications(medicamentoDTO).createdate(LocalDateTime.of(2023,05,26,10,30,0))
                 .quantity(10).unitvalue(new BigDecimal(20)).total(new BigDecimal(200))
                 .build();
 
-        ventaDTOTwo= SaleDTO.builder().medication(medicamentoDTO).createdate(LocalDateTime.of(2023,05,26,10,30,0))
+        ventaDTOTwo= SaleDTO.builder().medications(medicamentoDTO).createdate(LocalDateTime.of(2023,05,26,10,30,0))
                 .quantity(10).unitvalue(new BigDecimal(20)).total(new BigDecimal(200))
                 .build();
 
 
     }
 
-//    @Test
-//    void saveVenta_succes() throws IOException {
-//
-//        // Arrange
-//        when(medicamentoRepository.findByNameAndLaboratory(medicamento.getName(), medicamento.getLaboratory()))
-//                .thenReturn(Optional.of(medicamento));
-//
-//        Sale venta= VentaMapper.INSTANCE.DtoToEntity(ventaDTO);
-//        when(ventaRepository.save(any())).thenReturn(venta);
-//
-//        // Act
-//        VentaDTO result = ventaService.saveVenta(ventaDTO);
-//
-//        // Assert
-//        assertNotNull(result);
-//        assertEquals(result,VentaMapper.INSTANCE.mapToDto(venta));
-//    }
-//
-//    @Test
-//    void saveVenta_exception() throws IOException  {
-//        when(medicamentoRepository.findByNameAndLaboratory(anyString(), anyString())).thenReturn(Optional.empty());
-//        // Act & Assert
-//        assertThrows(MedicamentoNotFoundNameAndLaboratoryException.class, () -> ventaService.saveVenta(ventaDTO));
-//    }
-//
-//
-//    @Test
-//    void getVentas() {
-//        List<SaleDTO> ventasDTO= new ArrayList<>(Arrays.asList(ventaDTO,ventaDTOTwo));
-//        List<Sale> ventas= new ArrayList<>(Arrays.asList(venta,ventaTwo));
-//        when(ventaRepository.findAll()).thenReturn(ventas);
-//        assertEquals(2,ventaService.getVentas().size());
-//    }
+    @Test
+    void saveVenta_succes() throws IOException {
+
+        when(medicamentoRepository.findByNameAndLaboratory(medicamento.getName(), medicamento.getLaboratory()))
+                .thenReturn(Optional.of(medicamento));
+
+        Sale venta= VentaMapper.INSTANCE.DtoToEntity(ventaDTO);
+        when(ventaRepository.save(any())).thenReturn(venta);
+
+        SaleDTO result = ventaService.saveVenta(ventaDTO);
+
+        assertNotNull(result);
+        assertEquals(result, VentaMapper.INSTANCE.mapToDto(venta));
+    }
+
+    @Test
+    void saveVenta_exception() throws IOException  {
+        when(medicamentoRepository.findByNameAndLaboratory(anyString(), anyString())).thenReturn(Optional.empty());
+        assertThrows(MedicamentoNotFoundNameAndLaboratoryException.class, () -> ventaService.saveVenta(ventaDTO));
+    }
+
+    @Test
+    void getVentas() {
+        List<SaleDTO> sale = new ArrayList<>(Arrays.asList(ventaDTO,ventaDTOTwo));
+        List<Sale> ventas = new ArrayList<>(Arrays.asList(venta,ventaTwo));
+        when(ventaRepository.findAll()).thenReturn(ventas);
+        assertEquals(2,ventaService.getVentas().size());
+    }
 }

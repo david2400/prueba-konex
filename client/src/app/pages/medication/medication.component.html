@@ -1,135 +1,137 @@
-<div class="card px-8 py-4">
-  <p-toast></p-toast>
-  <p-table
-    #dt
-    [value]="medicacion"
-    dataKey="id"
-    [tableStyle]="{ 'min-width': '50rem', }"
-    [rowHover]="true"
-    [rows]="25"
-    [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[2, 10, 25]"
-    [globalFilterFields]="[
-      'name',
-      'laboratory',
-      'dateProduction',
-      'dateExpiration',
-      'stock',
-      'unitvalue'
-    ]"
-    [paginator]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  >
-    <ng-template pTemplate="caption">
-      <div class="flex w-full justify-content-end gap-3">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Global Search"
-          />
-        </span>
-        <button
-          pButton
-          label="Clear"
-          class="p-button-outlined"
-          icon="pi pi-filter-slash"
-          (click)="clear(dt)"
-        ></button>
-        <span class="p-input-icon-left ml-auto"></span>
-        <button
-          pButton
-          label="Agregar"
-          class="p-button-outlined"
-          icon="pi pi-plus"
-          (click)="showModalMedication(false)"
-        ></button>
-      </div>
-    </ng-template>
+<div class="card px-4 py-4">
+  <p-card class="text-center" header="Administrar medicamentos">
+    <p-toast></p-toast>
+    <p-table
+      #dt
+      [value]="medicacion"
+      dataKey="id"
+      [tableStyle]="{ 'min-width': '50rem', }"
+      [rowHover]="true"
+      [rows]="25"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[2, 10, 25]"
+      [globalFilterFields]="[
+        'name',
+        'laboratory',
+        'dateProduction',
+        'dateExpiration',
+        'stock',
+        'unitvalue'
+      ]"
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex w-full justify-content-end gap-3">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+              placeholder="Global Search"
+            />
+          </span>
+          <button
+            pButton
+            label="Clear"
+            icon="pi pi-filter-slash"
+            (click)="clear(dt)"
+          ></button>
+          <span class="p-input-icon-left ml-auto"></span>
+          <button
+            pButton
+            label="Agregar"
+            class="p-button-success"
+            icon="pi pi-plus"
+            (click)="showModalMedication(false)"
+          ></button>
+        </div>
+      </ng-template>
 
-    <ng-template pTemplate="header" class="mt-3 mb-3">
-      <tr>
-        <th class="text-center">estado</th>
-        <th class="text-center">
-          nombre<p-columnFilter
-            type="text"
-            field="name"
-            display="menu"
-          ></p-columnFilter>
-        </th>
-        <th class="text-center">
-          laboratorio<p-columnFilter
-            type="text"
-            field="laboratory"
-            display="menu"
-          ></p-columnFilter>
-        </th>
-        <th class="text-center">
-          fechaFabricacion<p-columnFilter
-            type="text"
-            field="dateProduction"
-            display="menu"
-          ></p-columnFilter>
-        </th>
-        <th class="text-center">
-          fechaVencimiento
-          <p-columnFilter
-            type="text"
-            field="dateExpiration"
-            display="menu"
-          ></p-columnFilter>
-        </th>
-        <th class="text-center">stock</th>
-        <th class="text-center">valorUnitario</th>
-        <th class="text-center">Acciones</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-medicamento>
-      <tr>
-        <td class="text-center">
-          <i
-            [ngClass]="{
+      <ng-template pTemplate="header" class="mt-3 mb-3">
+        <tr>
+          <th class="text-center">estado</th>
+          <th class="text-center">
+            nombre<p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+            ></p-columnFilter>
+          </th>
+          <th class="text-center">
+            laboratorio<p-columnFilter
+              type="text"
+              field="laboratory"
+              display="menu"
+            ></p-columnFilter>
+          </th>
+          <th class="text-center">
+            fechaFabricacion<p-columnFilter
+              type="text"
+              field="dateProduction"
+              display="menu"
+            ></p-columnFilter>
+          </th>
+          <th class="text-center">
+            fechaVencimiento
+            <p-columnFilter
+              type="text"
+              field="dateExpiration"
+              display="menu"
+            ></p-columnFilter>
+          </th>
+          <th class="text-center">stock</th>
+          <th class="text-center">valorUnitario</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-medicamento>
+        <tr>
+          <td class="text-center">
+            <i
+              [ngClass]="{
             'pi pi-circle-on':true,
             'text-red-700': medicamento.state == 0,
             'text-green-700': medicamento.state == 1,
           }"
-          ></i>
-        </td>
-        <td class="text-center">{{ medicamento.name }}</td>
-        <td class="text-center">{{ medicamento.laboratory }}</td>
-        <td class="text-center">
-          {{ medicamento.dateProduction | date : "yyyy-MM-dd" }}
-        </td>
-        <td class="text-center">
-          {{ medicamento.dateExpiration | date : "yyyy-MM-dd" }}
-        </td>
+            ></i>
+          </td>
+          <td class="text-center">{{ medicamento.name }}</td>
+          <td class="text-center">{{ medicamento.laboratory }}</td>
+          <td class="text-center">
+            {{ medicamento.dateProduction | date : "yyyy-MM-dd" }}
+          </td>
+          <td class="text-center">
+            {{ medicamento.dateExpiration | date : "yyyy-MM-dd" }}
+          </td>
 
-        <td class="text-center">
-          <div
-            [ngClass]="{
-              outofstock: medicamento.stock === 0,
-              lowstock: medicamento.stock > 0 && medicamento.stock < 10,
-              instock: medicamento.stock > 10
-            }"
-          >
-            {{ medicamento.stock }}
-          </div>
-        </td>
-        <td class="text-center">{{ medicamento.unitvalue }}</td>
-        <td>
-          <p-splitButton
-            [appendTo]="'body'"
-            icon="pi pi-shopping-cart"
-            label="Vender"
-            (onClick)="sell(medicamento)"
-            (onDropdownClick)="handleClick(medicamento.id)"
-            [model]="items"
-          />
-        </td>
-        <br />
-      </tr>
-    </ng-template>
-  </p-table>
+          <td class="text-center">
+            <div
+              [ngClass]="{
+                outofstock: medicamento.stock === 0,
+                lowstock: medicamento.stock > 0 && medicamento.stock < 10,
+                instock: medicamento.stock > 10
+              }"
+            >
+              {{ medicamento.stock }}
+            </div>
+          </td>
+          <td class="text-center">{{ medicamento.unitvalue }}</td>
+          <td class="text-center">
+            <p-splitButton
+              [appendTo]="'body'"
+              icon="pi pi-shopping-cart"
+              styleClass="p-button-warning"
+              label="Vender"
+              (onClick)="sell(medicamento)"
+              (onDropdownClick)="handleClick(medicamento.id)"
+              [model]="items"
+            />
+          </td>
+          <br />
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
 </div>

@@ -25,9 +25,9 @@ public class SaleServiceImpl implements SaleService {
     private MedicationRepository medicamentoRepository;
 
     public SaleDTO saveVenta(SaleDTO saleDTO) throws IOException {
-        Optional<Medications> medicamento=medicamentoRepository.findByNameAndLaboratory(saleDTO.getMedication().getName(), saleDTO.getMedication().getLaboratory());
+        Optional<Medications> medicamento=medicamentoRepository.findByNameAndLaboratory(saleDTO.getMedications().getName(), saleDTO.getMedications().getLaboratory());
         if(!medicamento.isPresent()){
-            throw new MedicamentoNotFoundNameAndLaboratoryException(saleDTO.getMedication().getName(), saleDTO.getMedication().getLaboratory());}
+            throw new MedicamentoNotFoundNameAndLaboratoryException(saleDTO.getMedications().getName(), saleDTO.getMedications().getLaboratory());}
 
 
         medicamento.get().setStock(medicamento.get().getStock()-saleDTO.getQuantity());
@@ -42,8 +42,6 @@ public class SaleServiceImpl implements SaleService {
 
 
     public List<SaleDTO> getVentas(){
-        System.out.println(saleRepository.findAll());
-
         return  VentaMapper.INSTANCE.mapToDto(saleRepository.findAll());
     }
 }

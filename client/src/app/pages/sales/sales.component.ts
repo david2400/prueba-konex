@@ -25,6 +25,8 @@ export class SalesComponent {
       .getVentas()
       .toPromise()
       .then((data) => {
+        console.log(data);
+
         this.ventas = data;
         this.ventasFiltradas = data;
       });
@@ -48,6 +50,5 @@ export class SalesComponent {
 
       return fecha >= x && fecha <= y;
     });
-    console.log(this.ventasFiltradas);
   }
 }
