@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MedicamentoRepository extends JpaRepository<Medications, Long> {
+public interface MedicationRepository extends JpaRepository<Medications, Long> {
 
     Optional<Medications> findByNameAndLaboratory(String name, String laboratory);
 

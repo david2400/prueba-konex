@@ -19,6 +19,8 @@ import java.util.Objects;
 @AllArgsConstructor
 public class MedicationDTO {
 
+    private Long id;
+
     @NotBlank(message = "Nombre cannot be null")
     @Pattern(regexp = "^[a-zA-Z\\s-]*$", message = "Nombre cannot be null")
     private String name;
@@ -32,15 +34,14 @@ public class MedicationDTO {
 
     @NotBlank(message = "Fecha Vencimiento cannot be null")
     @DateTimeFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    private LocalDateTime dateExpire;
+    private LocalDateTime dateExpiration;
 
     @Min(value = 1, message = "La cantidad mínima permitida es 1")
     private Integer stock;
 
     @PositiveOrZero(message = "El valor debe ser positivo o cero")
-    private Double unitValue;
+    private Double unitvalue;
 
-    @NotBlank(message = "Laboratorio cannot be null")
     private Integer state;
 
     @Override
@@ -48,11 +49,11 @@ public class MedicationDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MedicationDTO that = (MedicationDTO) o;
-        return name.equals(that.name) && laboratory.equals(that.laboratory) && dateProduction.equals(that.dateProduction) && dateExpire.equals(that.dateExpire) && stock.equals(that.stock) && unitValue.equals(that.unitValue) && state.equals(that.state);
+        return name.equals(that.name) && laboratory.equals(that.laboratory) && dateProduction.equals(that.dateProduction) && dateExpiration.equals(that.dateExpiration) && stock.equals(that.stock) && unitvalue.equals(that.unitvalue) && state.equals(that.state);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, laboratory, dateProduction,dateExpire,stock,unitValue, state);
+        return Objects.hash(name, laboratory, dateProduction,dateExpiration,stock,unitvalue, state);
     }
 }

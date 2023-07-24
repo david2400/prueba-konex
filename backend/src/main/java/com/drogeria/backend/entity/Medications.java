@@ -15,7 +15,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "api/medications")
+@Builder
+@Table(name = "medication")
 public class Medications implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -11,10 +11,11 @@ export class VentaService {
   constructor(private http: HttpClient) { }
 
   getVentas():Observable<any> {
-    return this.http.get<any>(`${environment.API_URL}/api/venta/`).pipe();
+    return this.http.get<any>(`${environment.API_URL}/api/sales/`).pipe();
   }
 
   sell(venta: any): Observable<Object> {
-    return this.http.post(`${environment.API_URL}/api/venta/create`, venta);
+    console.log(venta);
+    return this.http.post(`${environment.API_URL}/api/sales/register`, venta);
   }
 }

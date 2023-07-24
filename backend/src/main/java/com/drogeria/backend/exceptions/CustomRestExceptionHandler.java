@@ -22,8 +22,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         STATUS_CODE.put(MedicamentoNotFoundException.class.getSimpleName(),HttpStatus.NOT_FOUND.value());
         STATUS_CODE.put(MedicamentoNotFoundNameAndLaboratoryException.class.getSimpleName(),HttpStatus.NOT_FOUND.value());
         STATUS_CODE.put(GlobalDataRequiredException.class.getSimpleName(),HttpStatus.CONFLICT.value());
-
-
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

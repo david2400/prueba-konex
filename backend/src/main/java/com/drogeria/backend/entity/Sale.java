@@ -18,7 +18,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "sales")
+@Builder
+@Table(name = "sale")
 public class Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,9 +28,9 @@ public class Sale implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "createDate")
+    @Column(name = "createdate")
     @DateTimeFormat(pattern ="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    private LocalDateTime createDate;
+    private LocalDateTime createdate;
 
     @ManyToOne
     @JoinColumn(name = "id_medicamento")
@@ -40,8 +41,8 @@ public class Sale implements Serializable {
     private Integer quantity;
 
 
-    @Column(name = "unitValue",columnDefinition = "NUMBER")
-    private BigDecimal unitValue;
+    @Column(name = "unitvalue",columnDefinition = "NUMBER")
+    private BigDecimal unitvalue;
 
     @Column(name = "total",columnDefinition = "NUMBER")
     private BigDecimal total;

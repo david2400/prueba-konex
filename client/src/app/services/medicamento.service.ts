@@ -17,15 +17,17 @@ export class MedicamentoService {
   }
 
   delete(id: Number) {
-    return this.http.delete(`${environment.API_URL}/api/medication/delete/${id}`);
+    return this.http
+      .delete(`${environment.API_URL}/api/medication/delete/${id}`)
+      .pipe();
   }
   getMedicamentos(): Observable<any> {
     return this.http.get<any>(`${environment.API_URL}/api/medication/`).pipe();
   }
 
-  getMedicamento(nombre: String, laboratorio: String): Observable<any> {
+  getMedicamento(id: number): Observable<any> {
     return this.http
-      .get<any>(`${environment.API_URL}/api/medication/${nombre}/${laboratorio}`)
+      .get<any>(`${environment.API_URL}/api/medication/${id}`)
       .pipe();
   }
 

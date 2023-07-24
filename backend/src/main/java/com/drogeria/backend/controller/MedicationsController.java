@@ -1,6 +1,7 @@
 package com.drogeria.backend.controller;
 
 import com.drogeria.backend.dto.MedicationDTO;
+import com.drogeria.backend.entity.Medications;
 import com.drogeria.backend.service.MedicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,7 @@ public class MedicationsController {
 
     @DeleteMapping("delete/{id}")
     @ResponseBody
-    public ResponseEntity<String> delete(@PathVariable("id") Long id ) throws IOException {
+    public ResponseEntity<Medications> delete(@PathVariable("id") Long id ) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(medicamentoService.deleteMedication(id));
     }
 }

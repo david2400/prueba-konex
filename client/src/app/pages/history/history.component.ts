@@ -6,6 +6,7 @@ import {
 } from 'primeng/dynamicdialog';
 import { VentaService } from '@app/services/venta.service';
 import { MessageService } from 'primeng/api';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-history',
@@ -13,78 +14,96 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./history.component.css'],
 })
 export class HistoryComponent {
+  formSale = this.fb.group({
+    quantity: [
+      { value: 1, disabled: false },
+      Validators.compose([Validators.required, Validators.min(1)]),
+    ],
+    unitvalue: [{ value: 0, disabled: false }, Validators.required],
+    total: [
+      { value: 1, disabled: false },
+      Validators.compose([Validators.required]),
+    ],
+    createdate: [{ value: new Date(), disabled: false }, Validators.required],
+  });
+
   constructor(
+    public fb: FormBuilder,
     public dialogRef: DynamicDialogRef,
     public dialogConfig: DynamicDialogConfig,
     public ventaService: VentaService,
     private messageService: MessageService
   ) {}
 
-  venta = {
-    cantidad: 1,
+  medication = {
+    name: '',
+    laboratory: '',
+    fechaFabricacion: Date,
+    fechaVencimiento: Date,
+    stock: 0,
     valorUnitario: 0,
-    valorTotal: 0,
-    fecha: '',
-    medicamento: {
-      nombre: '',
-      laboratorio: '',
-      fechaFabricacion: Date,
-      fechaVencimiento: Date,
-      cantidadStock: 0,
-      valorUnitario: 0,
-    },
   };
 
   ngOnInit(): void {
     this.chargeData();
   }
 
-  onInputChange(event: any) {
-    this.venta.cantidad = event.value;
+  onInputChange() {
+    if (this.f['quantity'].value > this.medication.stock) {
+      this.f['quantity'].setValue(this.medication.stock);
 
-    if (this.venta.cantidad > this.venta.medicamento.cantidadStock) {
-      this.venta.cantidad = this.venta.medicamento.cantidadStock;
-      this.venta.valorTotal =
-        this.venta.medicamento.valorUnitario * this.venta.cantidad;
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
         detail: 'La cantidad no puede ser mayor al stock',
       });
-
-      return;
     }
 
-    this.venta.valorTotal =
-      this.venta.medicamento.valorUnitario * this.venta.cantidad;
+    this.f['total'].setValue(
+      this.f['unitvalue'].value * this.f['quantity'].value
+    );
   }
 
   async vender() {
-    console.log(this.venta.cantidad);
-    console.log(this.venta.medicamento.cantidadStock);
-
-    this.venta.fecha = new Date().toISOString();
-    console.log(this.venta.fecha);
-
-    await this.ventaService.sell(this.venta).toPromise().then();
-    this.dialogRef.close();
-    await this.esperarDosSegundos();
-    window.location.reload();
+    if (this.formSale.valid) {
+      const venta = {
+        ...this.formSale.value,
+        medication: this.medication,
+      };
+      await this.ventaService
+        .sell(venta)
+        .toPromise()
+        .then((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Venta exitosa!',
+          });
+          this.dialogRef.close();
+        })
+        .catch((data) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: data.error.exceptionName,
+            detail: data.error.message,
+          });
+        });
+    }
   }
 
-  esperarDosSegundos(): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 1500);
-    });
+  get f(): { [p: string]: AbstractControl } {
+    return this.formSale.controls;
   }
 
   chargeData() {
-    this.venta.medicamento = this.dialogConfig.data.m;
-    this.venta.valorUnitario = this.venta.medicamento.valorUnitario;
-    this.venta.valorTotal =
-      this.venta.medicamento.valorUnitario * this.venta.cantidad;
-    console.log(this.venta);
+    this.medication = this.dialogConfig.data.m;
+    this.f['quantity'].addValidators(
+      Validators.maxLength(this.dialogConfig.data.m.stock)
+    );
+    this.f['unitvalue'].setValue(this.dialogConfig.data.m.unitvalue);
+    this.f['total'].setValue(
+      this.dialogConfig.data.m.unitvalue * this.f['quantity'].value
+    );
+    console.log(this.dialogConfig.data.m);
   }
 }

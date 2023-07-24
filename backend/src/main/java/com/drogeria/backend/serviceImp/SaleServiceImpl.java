@@ -5,7 +5,7 @@ import com.drogeria.backend.entity.Medications;
 import com.drogeria.backend.entity.Sale;
 import com.drogeria.backend.exceptions.medicamento.MedicamentoNotFoundNameAndLaboratoryException;
 import com.drogeria.backend.mapper.VentaMapper;
-import com.drogeria.backend.repository.MedicamentoRepository;
+import com.drogeria.backend.repository.MedicationRepository;
 import com.drogeria.backend.repository.SaleRepository;
 import com.drogeria.backend.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class SaleServiceImpl implements SaleService {
     private SaleRepository saleRepository;
 
     @Autowired
-    private MedicamentoRepository medicamentoRepository;
+    private MedicationRepository medicamentoRepository;
 
     public SaleDTO saveVenta(SaleDTO saleDTO) throws IOException {
         Optional<Medications> medicamento=medicamentoRepository.findByNameAndLaboratory(saleDTO.getMedication().getName(), saleDTO.getMedication().getLaboratory());
@@ -42,6 +42,8 @@ public class SaleServiceImpl implements SaleService {
 
 
     public List<SaleDTO> getVentas(){
+        System.out.println(saleRepository.findAll());
+
         return  VentaMapper.INSTANCE.mapToDto(saleRepository.findAll());
     }
 }

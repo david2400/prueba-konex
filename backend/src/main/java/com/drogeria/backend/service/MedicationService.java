@@ -1,6 +1,7 @@
 package com.drogeria.backend.service;
 
 import com.drogeria.backend.dto.MedicationDTO;
+import com.drogeria.backend.entity.Medications;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface MedicationService {
 
     List<MedicationDTO> getMedications();
 
-    String deleteMedication(Long id)throws IOException;
+    Medications deleteMedication(Long id)throws IOException;
 
     MedicationDTO updateMedicamento(MedicationDTO medicamentoDTO) throws IOException;
 

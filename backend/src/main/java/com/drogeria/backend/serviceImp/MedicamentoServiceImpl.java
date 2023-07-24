@@ -5,8 +5,9 @@ import com.drogeria.backend.entity.Medications;
 import com.drogeria.backend.exceptions.global.GlobalDataRequiredException;
 import com.drogeria.backend.exceptions.medicamento.MedicamentoNotFoundNameAndLaboratoryException;
 import com.drogeria.backend.exceptions.medicamento.MedicamentoNotFoundException;
+import com.drogeria.backend.exceptions.medicamento.MedicamentoRepeatException;
 import com.drogeria.backend.mapper.MedicamentoMapper;
-import com.drogeria.backend.repository.MedicamentoRepository;
+import com.drogeria.backend.repository.MedicationRepository;
 import com.drogeria.backend.service.MedicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class MedicamentoServiceImpl implements MedicationService {
 
     @Autowired
-    private MedicamentoRepository medicamentoRepository;
+    private MedicationRepository medicamentoRepository;
 
     @Override
     @Transactional
@@ -30,6 +31,12 @@ public class MedicamentoServiceImpl implements MedicationService {
         if(Objects.isNull(medication)){
             throw  new GlobalDataRequiredException();
         }
+        Optional<Medications> medicamento =medicamentoRepository.findByNameAndLaboratory(medication.getName(),medication.getLaboratory());
+        if(medicamento.isPresent()){
+            throw  new MedicamentoRepeatException(medication.getName(),medication.getLaboratory());
+        }
+
+        medication.setState(1);
         return MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.
                 save(MedicamentoMapper.INSTANCE.DtoToEntity(medication)));
     }
@@ -53,33 +60,31 @@ public class MedicamentoServiceImpl implements MedicationService {
 
     @Override
     public List<MedicationDTO> getMedications(){
-        System.out.println("hola");
-        System.out.println(medicamentoRepository.findAll());
-        return   MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.findAll());
+        return MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.findAll());
     }
 
     @Override
     @Transactional
-    public String deleteMedication(Long id) {
+    public Medications deleteMedication(Long id) {
         Medications medicamento=medicamentoRepository.findById(id).orElseThrow(()-> new MedicamentoNotFoundException(id));
 
         medicamento.setState(medicamento.getState()==0?1:0);
         medicamentoRepository.save(medicamento);
-        return "Medicamento eliminado";
+        return medicamento;
     }
 
     @Override
     @Transactional
     public MedicationDTO updateMedicamento(MedicationDTO medicamentoDTO) throws IOException {
-        Optional<Medications> medicamentoExistente = medicamentoRepository.findByNameAndLaboratory(medicamentoDTO.getName(),medicamentoDTO.getLaboratory());
+        Optional<Medications> medicamentoExistente = medicamentoRepository.findById(medicamentoDTO.getId());
 
         if (!medicamentoExistente.isPresent()) {
             throw new MedicamentoNotFoundNameAndLaboratoryException(medicamentoDTO.getName(),medicamentoDTO.getLaboratory());
         }
 
-        //LOMBOK NO FUNCIONO Y EL BUILDER PAILAS
         Medications medicamentoActualizado= MedicamentoMapper.INSTANCE.DtoToEntity(medicamentoDTO);
         medicamentoActualizado.setId(medicamentoExistente.get().getId());
+        medicamentoActualizado.setState(medicamentoExistente.get().getState());
 
         return MedicamentoMapper.INSTANCE.mapToDto(medicamentoRepository.save(medicamentoActualizado));
     }

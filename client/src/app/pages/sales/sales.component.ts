@@ -37,8 +37,6 @@ export class SalesComponent {
 
   filtrarPorFechas() {
     let arr = this.ventas;
-    console.log(this.vencimientoFilter);
-
     this.ventasFiltradas = arr.filter((element) => {
       const fecha = new Date(element.fecha!);
       let x = new Date(this.fabricacionFilter);

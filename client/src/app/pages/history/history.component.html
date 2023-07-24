@@ -1,42 +1,73 @@
-<p-card>
-  <div class="card">
-    <div class="formgrid grid">
-      <div class="field col">
-        <p>Nombre:</p>
-        <label for="Nombre">{{ venta.medicamento.nombre }}</label>
-
-        <p>CantidadStock:</p>
-        <label for="Cantidad">{{ venta.medicamento.cantidadStock }}</label>
-
-        <p>cantidadStock:</p>
-        <p></p>
+<div class="p-8 card">
+  <div class="grid">
+    <div class="col-12 sm:col-12 lg:col-6">
+      <p>Nombre:</p>
+      <label for="Nombre">{{ medication.name }}</label>
+    </div>
+    <div class="col-12 sm:col-12 lg:col-6">
+      <p>Laboratorio:</p>
+      <label for="laboratorio">{{ medication.laboratory }}</label>
+    </div>
+    <div class="col-12 sm:col-12 lg:col-6">
+      <p>CantidadStock:</p>
+      <label for="Cantidad">{{ medication.stock }}</label>
+    </div>
+    <form class="grid col-12" [formGroup]="formSale" (ngSubmit)="vender()">
+      <div class="col-12 sm:col-12 lg:col-6">
+        <p>Cantidad:</p>
         <p-inputNumber
           inputId="minmax"
           inputId="minmax"
           mode="decimal"
-          [(ngModel)]="venta.cantidad"
           [min]="1"
-          [max]="this.venta.medicamento.cantidadStock"
-          (onInput)="onInputChange($event)"
+          formControlName="quantity"
+          (onInput)="onInputChange()"
         >
         </p-inputNumber>
       </div>
-      <div class="field col">
-        <p>Laboratorio:</p>
-        <label for="laboratorio">{{ venta.medicamento.laboratorio }}</label>
-
-        <p>ValorUnitario:</p>
-        <label for="valorUnitario">{{ venta.medicamento.valorUnitario }}</label>
-
-        <p>Valor Total:</p>
-        {{ venta.valorTotal }}
+      <div class="col-12 sm:col-12 lg:col-6">
+        <p>fecha:</p>
+        <p-calendar
+          name="createdate"
+          formControlName="createdate"
+          [showIcon]="true"
+          styleClass="w-full readonly"
+          dateFormat="dd-mm-yy"
+          [appendTo]="'body'"
+          
+        ></p-calendar>
       </div>
-    </div>
 
-    <p-button
-      label="Vender"
-      styleClass="p-button-outlined"
-      (onClick)="vender()"
-    ></p-button>
+      <div class="col-12 sm:col-12 lg:col-6">
+        <p>Valor Unitario:</p>
+        <input
+          type="text"
+          name="unitvalue"
+          class="w-full"
+          pInputText
+          formControlName="unitvalue"
+          [readonly]="true"
+        />
+      </div>
+      <div class="col-12 sm:col-12 lg:col-6">
+        <p>Valor Total:</p>
+        <p-inputNumber
+          inputId="minmax"
+          inputId="minmax"
+          mode="decimal"
+          formControlName="total"
+          [readonly]="true"
+          (onInput)="onInputChange()"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="col-12">
+        <p-button
+          type="summit"
+          label="Vender"
+          styleClass="p-button-outlined"
+        ></p-button>
+      </div>
+    </form>
   </div>
-</p-card>
+</div>

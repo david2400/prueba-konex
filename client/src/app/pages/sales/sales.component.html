@@ -1,84 +1,101 @@
-<p-table
-  #dt
-  [value]="ventasFiltradas"
-  dataKey="id"
-  [tableStyle]="{ 'min-width': '50rem', }"
-  [rowHover]="true"
-  [rows]="2"
-  [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[2, 10, 25]"
-  [paginator]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [globalFilterFields]="['fecha']"
->
-  <ng-template pTemplate="caption">
-    <div class="flex w-full justify-content-end gap-3">
-      <button
-        pButton
-        label="Clear"
-        class="p-button-outlined"
-        icon="pi pi-filter-slash"
-        (click)="clear(dt)"
-      ></button>
-      <span class="p-input-icon-left ml-auto"></span>
-      <p-calendar
-        placeholder="Fecha Fabricacion"
-        name="fechaFabricacion"
-        [(ngModel)]="fabricacionFilter"
-        [showIcon]="true"
-        dateFormat="dd-mm-yy"
-        [appendTo]="'body'"
-      ></p-calendar>
-      <p-calendar
-        placeholder="Fecha Vencimineto"
-        name="fechaFabricacion"
-        [(ngModel)]="vencimientoFilter"
-        [showIcon]="true"
-        dateFormat="dd-mm-yy"
-        [appendTo]="'body'"
-      ></p-calendar>
-      <button
-        pButton
-        label="filtrar"
-        class="p-button-outlined"
-        icon="pi pi-sync"
-        (click)="filtrarPorFechas()"
-      ></button>
-      <button
-        pButton
-        label="Actualizar"
-        class="p-button-outlined"
-        icon="pi pi-sync"
-        (click)="getVentas()"
-      ></button>
-    </div>
-  </ng-template>
+<div class="card px-8 py-4">
+  <p-table
+    #dt
+    [value]="ventasFiltradas"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '50rem', }"
+    [rowHover]="true"
+    [rows]="25"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[2, 10, 25]"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="[
+      'createdate',
+      'medicamento',
+      'quantity',
+      'unitvalue',
+      'total'
+    ]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex w-full justify-content-end gap-3">
+        <button
+          pButton
+          label="Clear"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt)"
+        ></button>
+        <span class="p-input-icon-left ml-auto"></span>
+        <p-calendar
+          placeholder="Fecha Fabricacion"
+          name="fechaFabricacion"
+          [(ngModel)]="fabricacionFilter"
+          [showIcon]="true"
+          dateFormat="dd-mm-yy"
+          [appendTo]="'body'"
+        ></p-calendar>
+        <p-calendar
+          placeholder="Fecha Vencimineto"
+          name="fechaFabricacion"
+          [(ngModel)]="vencimientoFilter"
+          [showIcon]="true"
+          dateFormat="dd-mm-yy"
+          [appendTo]="'body'"
+        ></p-calendar>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Global Search"
+          />
+        </span>
+        <button
+          pButton
+          label="filtrar"
+          class="p-button-outlined"
+          icon="pi pi-sync"
+          (click)="filtrarPorFechas()"
+        ></button>
+        <button
+          pButton
+          label="Actualizar"
+          class="p-button-outlined"
+          icon="pi pi-sync"
+          (click)="getVentas()"
+        ></button>
+      </div>
+    </ng-template>
 
-  <ng-template pTemplate="header" class="mt-3 mb-3">
-    <tr>
-      <th>fecha</th>
-      <th>hora</th>
-      <th>medicamento</th>
-      <th>cantidad</th>
-      <th>valorUnitario</th>
-      <th>valorTotal</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-ventasFiltradas>
-    <tr>
-      <td>{{ ventasFiltradas.fecha | date : "yyyy-MM-dd" }}</td>
-      <td>{{ ventasFiltradas.fecha | date : "HH:mm:ss" }}</td>
-      <td>
-        {{
-          ventasFiltradas.medicamento.nombre +
+    <ng-template pTemplate="header" class="mt-3 mb-3">
+      <tr>
+        <th>fecha</th>
+        <th>hora</th>
+        <th>medicamento</th>
+        <th>cantidad</th>
+        <th>valorUnitario</th>
+        <th>valorTotal</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ventasFiltradas>
+      <tr>
+        <td>{{ ventasFiltradas.createdate | date : "yyyy-MM-dd" }}</td>
+        <td>{{ ventasFiltradas.createdate | date : "HH:mm:ss" }}</td>
+        <td>
+          <!-- {{
+          ventasFiltradas.medication.name +
             " - " +
-            ventasFiltradas.medicamento.laboratorio
-        }}
-      </td>
-      <td>{{ ventasFiltradas.cantidad }}</td>
-      <td>{{ ventasFiltradas.valorUnitario }}</td>
-      <td>{{ ventasFiltradas.valorTotal }}</td>
-      <br />
-    </tr>
-  </ng-template>
-</p-table>
+            ventasFiltradas.medication.laboratory
+        }} -->
+        </td>
+        <td>{{ ventasFiltradas.quantity }}</td>
+        <td>{{ ventasFiltradas.unitvalue }}</td>
+        <td>{{ ventasFiltradas.total }}</td>
+        <br />
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

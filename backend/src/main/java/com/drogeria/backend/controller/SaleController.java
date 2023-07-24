@@ -13,14 +13,14 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-@RequestMapping("sales")
+@RequestMapping("/api/sales")
 @Validated
 public class SaleController {
 
     @Autowired
     private SaleService salesService;
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<SaleDTO> registerSale(@RequestBody SaleDTO saleDTO) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED).body(salesService.saveVenta(saleDTO));
