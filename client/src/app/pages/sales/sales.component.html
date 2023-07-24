@@ -30,22 +30,6 @@
             (click)="clear(dt)"
           ></button>
           <span class="p-input-icon-left ml-auto"></span>
-          <p-calendar
-            placeholder="Fecha Fabricacion"
-            name="fechaFabricacion"
-            [(ngModel)]="fabricacionFilter"
-            [showIcon]="true"
-            dateFormat="dd-mm-yy"
-            [appendTo]="'body'"
-          ></p-calendar>
-          <p-calendar
-            placeholder="Fecha Vencimineto"
-            name="fechaFabricacion"
-            [(ngModel)]="vencimientoFilter"
-            [showIcon]="true"
-            dateFormat="dd-mm-yy"
-            [appendTo]="'body'"
-          ></p-calendar>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input
@@ -55,13 +39,6 @@
               placeholder="Global Search"
             />
           </span>
-          <button
-            pButton
-            label="filtrar"
-            class="p-button-outlined"
-            icon="pi pi-sync"
-            (click)="filtrarPorFechas()"
-          ></button>
           <button
             pButton
             label="Actualizar"
@@ -74,10 +51,31 @@
 
       <ng-template pTemplate="header" class="mt-3 mb-3">
         <tr>
-          <th class="text-center">fecha</th>
+          <th class="text-center">
+            fecha
+            <p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+            ></p-columnFilter>
+          </th>
           <th class="text-center">hora</th>
-          <th class="text-center">medicamento</th>
-          <th class="text-center">laboratorio</th>
+          <th class="text-center">
+            medicamento
+            <p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+            ></p-columnFilter>
+          </th>
+          <th class="text-center">
+            laboratorio
+            <p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+            ></p-columnFilter>
+          </th>
           <th class="text-center">cantidad</th>
           <th class="text-center">valorUnitario</th>
           <th class="text-center">valorTotal</th>

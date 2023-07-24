@@ -37,18 +37,5 @@ export class SalesComponent {
     table.clear();
   }
 
-  filtrarPorFechas() {
-    let arr = this.ventas;
-    this.ventasFiltradas = arr.filter((element) => {
-      const fecha = new Date(element.fecha!);
-      let x = new Date(this.fabricacionFilter);
-      let y = new Date(this.vencimientoFilter);
 
-      if (fecha < y) {
-        console.log('entro');
-      }
-
-      return fecha >= x && fecha <= y;
-    });
-  }
 }
